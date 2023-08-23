@@ -1,0 +1,44 @@
+h2 {
+  color: DimGray;
+}
+
+li {
+  list-style: none;
+}
+
+.List {
+  max-width: 75%;
+  margin: 2rem auto !important;
+}
+
+@media (max-width: 900px) {
+  .List {
+    max-width: 87%;
+  }
+}
+@media (max-width: 750px) {
+  .List {
+    max-width: 100%;
+  }
+}
+@media (min-width: 901px) {
+  .List {
+    max-width: 783px;
+  }
+}
+
+.grandTotal {
+  text-align: end;
+  padding: 1rem 20%;
+}
+@media (max-width: 500px) {
+  .grandTotal {
+    padding-right: 15%;
+  }
+}
+@media (max-width: 305px) {
+  .grandTotal {
+    padding-right: 15%;
+    font-size: 0.81rem;
+  }
+}

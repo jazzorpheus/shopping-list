@@ -1,0 +1,39 @@
+.ListItemText {
+  text-align: center;
+  width: 100%;
+  color: #1565c0;
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.ListItemText.product-name {
+  text-align: center;
+  width: 100%;
+  color: FireBrick;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 375px) {
+  .ListItemText {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 300px) {
+  .ListItemText {
+    font-size: 0.7rem;
+  }
+}
+
+.css-cveggr-MuiListItemIcon-root {
+  min-width: 0 !important;
+  color: rgba(0, 0, 0, 0.54);
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
