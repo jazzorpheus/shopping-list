@@ -37,7 +37,9 @@
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-
 .MuiListItemIcon-root css-1f8bws {
+  min-width: 0 !important;
+}
+.css-1f8bwsm {
   min-width: 0 !important;
 }
