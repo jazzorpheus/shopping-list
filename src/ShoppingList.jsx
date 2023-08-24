@@ -47,6 +47,7 @@ export default function ShoppingList() {
 
   // Add a ShoppingItem
   const addShoppingItem = (newItem) => {
+    console.log(newItem);
     setItems((currItems) => {
       return [
         ...currItems,
@@ -54,6 +55,7 @@ export default function ShoppingList() {
           name: newItem.name,
           price: parseFloat(newItem.price) || 0,
           qty: parseInt(newItem.qty),
+          category: newItem.category,
           inBasket: false,
           id: crypto.randomUUID(),
         },
@@ -102,4 +104,26 @@ export default function ShoppingList() {
       <ShoppingItemForm add={addShoppingItem} />
     </List>
   );
+
+  // return (
+  //   <List className="List">
+  //     <ShoppingListHeading />
+  //     {items.map((item) => {
+  //       return (
+  //         <ShoppingItem
+  //           item={item}
+  //           toggle={toggleShoppingItem}
+  //           remove={removeShoppingItem}
+  //           key={item.id}
+  //         />
+  //       );
+  //     })}
+  //     <br />
+  //     <hr style={{ marginRight: "10vw", marginLeft: "10vw" }} />
+  //     <div className="grandTotal">
+  //       <span style={{ marginRight: "20%" }}>GRAND TOTAL:</span> £{grandTotal}
+  //     </div>
+  //     <ShoppingItemForm add={addShoppingItem} />
+  //   </List>
+  // );
 }

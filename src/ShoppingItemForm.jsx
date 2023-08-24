@@ -1,6 +1,7 @@
 // NOTE: commented-out code was from before implementing react-hook-form
 
 // React Hooks
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 // My Styles
@@ -11,9 +12,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 export default function ShoppingItemForm({ add }) {
-  // const [formData, setFormData] = useState({ name: "", price: "", qty: "" });
-
-  //   React Hook Form Settings
+  //   React Hook Form
   const {
     register,
     handleSubmit,
@@ -55,21 +54,6 @@ export default function ShoppingItemForm({ add }) {
     },
   };
 
-  // const handleChange = (event) => {
-  //   setFormData((currData) => {
-  //     return {
-  //       ...currData,
-  //       [event.target.name]: event.target.value,
-  //     };
-  //   });
-  // };
-
-  // const submitForm = (event) => {
-  //   event.preventDefault();
-  //   add(formData);
-  //   setFormData({ name: "", price: "", qty: "" });
-  // };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
@@ -80,8 +64,6 @@ export default function ShoppingItemForm({ add }) {
         variant="standard"
         autoComplete="off"
         name="name"
-        // value={formData.name}
-        // onChange={handleChange}
         {...register("name", registerOptions.name)}
       />
       <small>{errors?.name && errors.name.message}</small>
@@ -93,8 +75,6 @@ export default function ShoppingItemForm({ add }) {
         variant="standard"
         autoComplete="off"
         name="price"
-        // value={formData.price}
-        // onChange={handleChange}
         {...register("price", registerOptions.price)}
       />
       <small>{errors?.price && errors.price.message}</small>
@@ -106,8 +86,6 @@ export default function ShoppingItemForm({ add }) {
         variant="standard"
         autoComplete="off"
         name="qty"
-        // value={formData.qty}
-        // onChange={handleChange}
         {...register("qty", registerOptions.qty)}
       />
       <small>{errors?.qty && errors.qty.message}</small>
