@@ -20,10 +20,3 @@ small {
     min-width: 300px;
   }
 }
-
-.MUIInputLabel {
-  margin-bottom: 0.5rem;
-}
-.MUISelect {
-  margin-bottom: 1rem;
-}

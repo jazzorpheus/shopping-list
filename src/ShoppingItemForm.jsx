@@ -1,7 +1,4 @@
-// NOTE: commented-out code was from before implementing react-hook-form
-
 // React Hooks
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 // My Styles
@@ -10,6 +7,11 @@ import "./ShoppingItemForm.css";
 // MUI Components
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+// MUI SELECT
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function ShoppingItemForm({ add }) {
   //   React Hook Form
@@ -24,7 +26,7 @@ export default function ShoppingItemForm({ add }) {
 
   const onSubmit = (formData) => {
     add(formData);
-    formData = { name: "", price: "", qty: "" };
+    formData = { name: "", price: "", qty: "", category: "other" };
     reset(formData);
   };
 
@@ -51,6 +53,9 @@ export default function ShoppingItemForm({ add }) {
         value: 99,
         message: "Quantity must be less than 100",
       },
+    },
+    category: {
+      required: true,
     },
   };
 
@@ -90,7 +95,26 @@ export default function ShoppingItemForm({ add }) {
       />
       <small>{errors?.qty && errors.qty.message}</small>
 
-      <Button variant="contained" type="submit">
+      {/* ******************************************************************  INPUT */}
+
+      <Box sx={{ minWidth: 150, marginBottom: "2rem", marginTop: "1rem" }}>
+        <FormControl fullWidth>
+          <Select
+            id="simple-select"
+            label="Category"
+            defaultValue={"other"}
+            name="category"
+            {...register("category")}
+          >
+            <MenuItem value={"produce"}>Fruit & Veg</MenuItem>
+            <MenuItem value={"meat&fish"}>Meat & Fish</MenuItem>
+            <MenuItem value={"dairy"}>Dairy</MenuItem>
+            <MenuItem value={"other"}>Other</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
+      <Button sx={{ minWidth: 230 }} variant="contained" type="submit">
         Add Item
       </Button>
     </form>
