@@ -40,6 +40,11 @@ export default function ShoppingItem({ item, toggle, remove }) {
           />
         </ListItemIcon>
         <ListItemText
+          sx={
+            item.inBasket
+              ? { color: "green", textDecoration: "line-through" }
+              : { color: "FireBrick" }
+          }
           disableTypography
           className="ListItemText product-name"
           id={labelId}
