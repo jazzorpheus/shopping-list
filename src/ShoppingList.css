@@ -11,6 +11,14 @@ li {
   margin: 2rem auto !important;
 }
 
+.Button.Clear,
+.Button.Clear:hover,
+.Button.Clear:active {
+  min-width: 230px;
+  color: FireBrick;
+  border-color: FireBrick;
+}
+
 @media (max-width: 900px) {
   .List {
     max-width: 87%;

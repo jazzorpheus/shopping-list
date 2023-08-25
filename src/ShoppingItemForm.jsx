@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 
 export default function ShoppingItemForm({ add }) {
   //   React Hook Form
@@ -26,7 +27,7 @@ export default function ShoppingItemForm({ add }) {
 
   const onSubmit = (formData) => {
     add(formData);
-    formData = { name: "", price: "", qty: "", category: "other" };
+    formData = { name: "", price: "", qty: "1", category: formData.category };
     reset(formData);
   };
 
@@ -99,14 +100,16 @@ export default function ShoppingItemForm({ add }) {
 
       <Box sx={{ minWidth: 150, marginBottom: "2rem", marginTop: "1rem" }}>
         <FormControl fullWidth>
+          <InputLabel id="simple-select-label">Category</InputLabel>
           <Select
             id="simple-select"
+            labelId="simple-select-label"
             label="Category"
-            defaultValue={"other"}
+            defaultValue={"fruit&veg"}
             name="category"
             {...register("category")}
           >
-            <MenuItem value={"produce"}>Fruit & Veg</MenuItem>
+            <MenuItem value={"fruit&veg"}>Fruit & Veg</MenuItem>
             <MenuItem value={"meat&fish"}>Meat & Fish</MenuItem>
             <MenuItem value={"dairy"}>Dairy</MenuItem>
             <MenuItem value={"other"}>Other</MenuItem>
