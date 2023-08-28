@@ -44,15 +44,15 @@ export default function ShoppingItemForm({ add }) {
       required: "An item quantity is required",
       pattern: {
         value: /^\d+$/i,
-        message: "Must be a number 1-99",
+        message: "Must be a number 1-10",
       },
       min: {
         value: 1,
-        message: "Quantity must be greater than 0",
+        message: "Quantity must be 1 or more",
       },
       max: {
         value: 99,
-        message: "Quantity must be less than 100",
+        message: "Quantity must be no greater than 99",
       },
     },
     category: {
@@ -105,14 +105,19 @@ export default function ShoppingItemForm({ add }) {
             id="simple-select"
             labelId="simple-select-label"
             label="Category"
-            defaultValue={"fruit&veg"}
+            defaultValue={"Fruit & Veg"}
             name="category"
             {...register("category")}
           >
-            <MenuItem value={"fruit&veg"}>Fruit & Veg</MenuItem>
-            <MenuItem value={"meat&fish"}>Meat & Fish</MenuItem>
-            <MenuItem value={"dairy"}>Dairy</MenuItem>
-            <MenuItem value={"other"}>Other</MenuItem>
+            <MenuItem value={"Beverages"}>Beverages</MenuItem>
+            <MenuItem value={"Condiments"}>Condiments</MenuItem>
+            <MenuItem value={"Dairy"}>Dairy</MenuItem>
+            <MenuItem value={"Frozen Food"}>Frozen Food</MenuItem>
+            <MenuItem value={"Fruit & Veg"}>Fruit & Veg</MenuItem>
+            <MenuItem value={"Grains"}>Grains</MenuItem>
+            <MenuItem value={"Household Supplies"}>Household Supplies</MenuItem>
+            <MenuItem value={"Meat & Fish"}>Meat & Fish</MenuItem>
+            <MenuItem value={"Other"}>Other</MenuItem>
           </Select>
         </FormControl>
       </Box>

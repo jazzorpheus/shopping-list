@@ -6,6 +6,9 @@ import ShoppingListHeading from "./ShoppingListHeading";
 import ShoppingItem from "./ShoppingItem";
 import ShoppingItemForm from "./ShoppingItemForm";
 
+// Category List
+import CategoryList from "./CategoryList";
+
 // My Styles
 import "./ShoppingList.css";
 
@@ -20,6 +23,8 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 // Get any data saved in localStorage
 const getInitialData = () => {
@@ -35,7 +40,7 @@ export default function ShoppingList() {
   const [items, setItems] = useState(getInitialData);
   const [grandTotal, setGrandTotal] = useState(0);
 
-  // Reset items State
+  // Clear all items
   const resetList = () => {
     setItems([]);
   };
@@ -44,6 +49,15 @@ export default function ShoppingList() {
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
+
+  // Create array of unique categories for rendering categoryList(s) dynamically
+  const categories = Array.from(
+    new Set(
+      items.map((item) => {
+        return item.category;
+      })
+    )
+  );
 
   // Update grandTotal whenever items State changes
   useEffect(() => {
@@ -58,20 +72,6 @@ export default function ShoppingList() {
       setGrandTotal(0);
     }
   }, [items]);
-
-  // *************************************************** MUI NESTED LISTS
-  const [open, setOpen] = useState(Array(5).fill(true));
-  const handleClick = (id) => {
-    setOpen((currVals) => {
-      return currVals.map((val, i) => {
-        if (i === id) {
-          return !val;
-        } else {
-          return val;
-        }
-      });
-    });
-  };
 
   // Add a ShoppingItem
   const addShoppingItem = (newItem) => {
@@ -120,131 +120,26 @@ export default function ShoppingList() {
         </Button>
       )}
 
-      {/* *******************************************************    FRUIT & VEG */}
-      {items.some((item) => item.category === "fruit&veg") && (
-        <Box>
-          <ListItemButton onClick={() => handleClick(0)} sx={{ py: 0 }}>
-            <ListItemIcon sx={{ marginRight: 0 }}>
-              <ChecklistIcon />
-            </ListItemIcon>
-            <ListItemText primary={<h2>Fruit & Veg</h2>} />
-            {open[0] ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open[0]} timeout="auto" unmountOnExit>
-            <ShoppingListHeading />
-            <List component="div" disablePadding>
-              {items
-                .filter((item) => item.category === "fruit&veg")
-                .map((item) => {
-                  return (
-                    <ShoppingItem
-                      item={item}
-                      toggle={toggleShoppingItem}
-                      remove={removeShoppingItem}
-                      key={item.id}
-                    />
-                  );
-                })}
-            </List>
-          </Collapse>
-        </Box>
-      )}
-      {/* *******************************************************    MEAT & FISH */}
-      {items.some((item) => item.category === "meat&fish") && (
-        <Box>
-          <ListItemButton onClick={() => handleClick(1)} sx={{ py: 0 }}>
-            <ListItemIcon sx={{ marginRight: 0 }}>
-              <ChecklistIcon />
-            </ListItemIcon>
-            <ListItemText primary={<h2>Meat & Fish</h2>} />
-            {open[1] ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open[1]} timeout="auto" unmountOnExit>
-            <ShoppingListHeading />
-            <List component="div" disablePadding>
-              {items
-                .filter((item) => item.category === "meat&fish")
-                .map((item) => {
-                  return (
-                    <ShoppingItem
-                      item={item}
-                      toggle={toggleShoppingItem}
-                      remove={removeShoppingItem}
-                      key={item.id}
-                    />
-                  );
-                })}
-            </List>
-          </Collapse>
-        </Box>
-      )}
+      {/* Render category lists from array of unique categories */}
+      {categories.map((category) => {
+        return (
+          <CategoryList
+            items={items.filter((item) => item.category === category)}
+            toggle={toggleShoppingItem}
+            remove={removeShoppingItem}
+            key={category}
+          />
+        );
+      })}
 
-      {/* *******************************************************    DAIRY */}
-      {items.some((item) => item.category === "dairy") && (
-        <Box>
-          <ListItemButton onClick={() => handleClick(2)} sx={{ py: 0 }}>
-            <ListItemIcon sx={{ marginRight: 0 }}>
-              <ChecklistIcon />
-            </ListItemIcon>
-            <ListItemText primary={<h2>Dairy</h2>} />
-            {open[2] ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open[2]} timeout="auto" unmountOnExit>
-            <ShoppingListHeading />
-            <List component="div" disablePadding>
-              {items
-                .filter((item) => item.category === "dairy")
-                .map((item) => {
-                  return (
-                    <ShoppingItem
-                      item={item}
-                      toggle={toggleShoppingItem}
-                      remove={removeShoppingItem}
-                      key={item.id}
-                    />
-                  );
-                })}
-            </List>
-          </Collapse>
-        </Box>
-      )}
-      {/* *******************************************************    OTHER */}
-      {items.some((item) => item.category === "other") && (
-        <Box>
-          <ListItemButton onClick={() => handleClick(3)} sx={{ py: 0 }}>
-            <ListItemIcon sx={{ marginRight: 0 }}>
-              <ChecklistIcon />
-            </ListItemIcon>
-            <ListItemText primary={<h2>Other</h2>} />
-            {open[3] ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open[3]} timeout="auto" unmountOnExit>
-            <ShoppingListHeading />
-            <List component="div" disablePadding>
-              {items
-                .filter((item) => item.category === "other")
-                .map((item) => {
-                  return (
-                    <ShoppingItem
-                      item={item}
-                      toggle={toggleShoppingItem}
-                      remove={removeShoppingItem}
-                      key={item.id}
-                    />
-                  );
-                })}
-            </List>
-          </Collapse>
-        </Box>
-      )}
-      <hr
-        style={{ marginRight: "10vw", marginLeft: "10vw", marginTop: "1.5rem" }}
-      />
-      <hr style={{ marginRight: "10vw", marginLeft: "10vw" }} />
+      <hr style={{ marginTop: "1.5rem" }} />
+      <hr />
       {grandTotal > 0 && (
-        <div className="grandTotal">
-          <span style={{ marginRight: "20%" }}>GRAND TOTAL:</span> £{grandTotal}
-        </div>
+        <Container maxWidth="sm" className="grandTotal">
+          <h3>
+            GRAND TOTAL: <span>£{grandTotal}</span>
+          </h3>
+        </Container>
       )}
       <ShoppingItemForm add={addShoppingItem} />
     </List>

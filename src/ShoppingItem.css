@@ -10,7 +10,6 @@
 .ListItemText.product-name {
   text-align: center;
   width: 100%;
-  /* color: FireBrick; */
   display: flex;
   justify-content: center;
 }
