@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 
 // My Components
-import ShoppingListHeading from "./ShoppingListHeading";
-import ShoppingItem from "./ShoppingItem";
 import ShoppingItemForm from "./ShoppingItemForm";
 
 // Category List
@@ -14,16 +12,7 @@ import "./ShoppingList.css";
 
 // MUI Components
 import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ChecklistIcon from "@mui/icons-material/Checklist";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 // Get any data saved in localStorage
@@ -81,7 +70,7 @@ export default function ShoppingList() {
         {
           name: newItem.name,
           price: parseFloat(newItem.price) || 0,
-          qty: parseInt(newItem.qty),
+          qty: parseInt(newItem.qty) || 1,
           category: newItem.category,
           inBasket: false,
           id: crypto.randomUUID(),

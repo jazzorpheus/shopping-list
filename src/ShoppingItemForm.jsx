@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // React Hooks
 import { useForm } from "react-hook-form";
 
@@ -27,7 +28,7 @@ export default function ShoppingItemForm({ add }) {
 
   const onSubmit = (formData) => {
     add(formData);
-    formData = { name: "", price: "", qty: "1", category: formData.category };
+    formData = { name: "", price: "", qty: "", category: formData.category };
     reset(formData);
   };
 
@@ -36,14 +37,14 @@ export default function ShoppingItemForm({ add }) {
     price: {
       // required: "A price is required",
       pattern: {
-        value: /^\d+\.\d+$/i,
-        message: "Must be of the form xx.xx, E.g. 2.00",
+        value: /^\d*\.?\d+$/,
+        message: "Must be of the form x.x, E.g. 1.67",
       },
     },
     qty: {
-      required: "An item quantity is required",
+      // required: "An item quantity is required",
       pattern: {
-        value: /^\d+$/i,
+        value: /^\d+$/,
         message: "Must be a number 1-10",
       },
       min: {
@@ -54,6 +55,7 @@ export default function ShoppingItemForm({ add }) {
         value: 99,
         message: "Quantity must be no greater than 99",
       },
+      defaultValue: 1,
     },
     category: {
       required: true,
