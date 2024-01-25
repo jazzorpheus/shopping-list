@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 
 // My Components
 import ShoppingItemForm from "./ShoppingItemForm";
-
-// Category List
 import CategoryList from "./CategoryList";
 
 // My Styles
@@ -14,6 +12,25 @@ import "./ShoppingList.css";
 import List from "@mui/material/List";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+// const style = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: 400,
+//   bgcolor: "background.paper",
+//   border: "2px solid #000",
+//   boxShadow: 24,
+//   p: 5,
+//   display: "flex",
+//   flexDirection: "column",
+//   justifyContent: "space-between",
+//   alignItems: "center",
+// };
 
 // Get any data saved in localStorage
 const getInitialData = () => {
@@ -28,10 +45,16 @@ const getInitialData = () => {
 export default function ShoppingList() {
   const [items, setItems] = useState(getInitialData);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [open, setOpen] = useState(false);
 
+  // Open modal to confirm clear all items
+  const handleOpen = () => setOpen(true);
+  // Close modal
+  const handleClose = () => setOpen(false);
   // Clear all items
-  const resetList = () => {
+  const reset = () => {
     setItems([]);
+    handleClose();
   };
 
   // Save shopping items to localStorage every time items State changes
@@ -39,7 +62,7 @@ export default function ShoppingList() {
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
-  // Create array of unique categories for rendering categoryList(s) dynamically
+  // Create array of unique categories for rendering categoryList(s)
   const categories = Array.from(
     new Set(
       items.map((item) => {
@@ -58,7 +81,7 @@ export default function ShoppingList() {
           .toFixed(2)
       );
     } else {
-      setGrandTotal(0);
+      setGrandTotal(null);
     }
   }, [items]);
 
@@ -104,10 +127,30 @@ export default function ShoppingList() {
       {!items.length ? (
         <p>Add an item below</p>
       ) : (
-        <Button className="Button Clear" variant="outlined" onClick={resetList}>
+        <Button
+          className="Button Clear"
+          variant="outlined"
+          // ************************************************     OPEN MODAL
+          onClick={handleOpen}
+        >
           CLEAR ALL
         </Button>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="Modal">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Are you sure? All shopping items will be deleted.
+          </Typography>
+          <Button className="Button Clear" variant="outlined" onClick={reset}>
+            Confirm Delete
+          </Button>
+        </Box>
+      </Modal>
 
       {/* Render category lists from array of unique categories */}
       {categories.map((category) => {
@@ -122,8 +165,8 @@ export default function ShoppingList() {
       })}
 
       <hr style={{ marginTop: "1.5rem" }} />
-      <hr />
-      {grandTotal > 0 && (
+      <hr style={{ marginBottom: "2rem" }} />
+      {grandTotal && (
         <Container maxWidth="sm" className="grandTotal">
           <h3>
             GRAND TOTAL: <span>£{grandTotal}</span>
