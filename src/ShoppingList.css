@@ -7,12 +7,16 @@ li {
   list-style: none;
 }
 
-.Button.Clear,
-.Button.Clear:hover,
-.Button.Clear:active {
+.Button.Clear {
   min-width: 230px;
   color: FireBrick;
   border-color: FireBrick;
+}
+
+.Button.Clear:hover,
+.Button.Clear:active {
+  border-color: FireBrick;
+  background-color: moccasin;
 }
 
 .Modal {
@@ -24,7 +28,9 @@ li {
   background-color: white;
   border: 2px solid #000;
   box-shadow: 24;
-  padding: 3rem;
+  padding: 2rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

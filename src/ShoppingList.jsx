@@ -143,10 +143,20 @@ export default function ShoppingList() {
         aria-describedby="modal-modal-description"
       >
         <Box className="Modal">
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            sx={{ textAlign: "center" }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
             Are you sure? All shopping items will be deleted.
           </Typography>
-          <Button className="Button Clear" variant="outlined" onClick={reset}>
+          <Button
+            sx={{ marginTop: 2 }}
+            className="Button Clear"
+            variant="outlined"
+            onClick={reset}
+          >
             Confirm Delete
           </Button>
         </Box>
